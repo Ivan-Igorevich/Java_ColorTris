@@ -7,11 +7,14 @@ import java.awt.*;
 class Brick {
     private final static int BRICK_SIZE = 20;
     private final static int BRICK_ARC_SIZE = 5;
+    private boolean isMovable;
     private int x;
     private int y;
     private Color color;
     private BrickColors bColors = new BrickColors();
 
+    void setMovable (boolean b) { isMovable = b; }
+    boolean getMovable () { return isMovable; }
     void setX(int _x){ x = _x; }
     void setY(int _y){ y = _y; }
     void changeColor() { color = bColors.getRandom(); }
@@ -22,6 +25,7 @@ class Brick {
     boolean isHitFloor(int win_height) { return y + BRICK_SIZE == win_height; }
 
     Brick(){
+        isMovable = true;
         x = 0;
         y = 0;
         color = bColors.getRandom();

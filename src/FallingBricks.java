@@ -11,6 +11,7 @@ class FallingBricks {
         b1.setX(80);
         b2.setX(100);
         if(b1.getColor() == b2.getColor()) b2.changeColor();
+//        if(!b1.getMovable()||!b2.getMovable()) throw new IndexOutOfBoundsException();
     }
 
     Brick getB1(){
@@ -21,16 +22,21 @@ class FallingBricks {
     }
 
     int getLeftBorder(){
-        return b1.getX();
+        return (b1.getX() > b2.getX()) ? b2.getX() : b1.getX();
     }
 
     int getRightBorder(){
-        return b2.getX() + b2.getBrickSize();
+        return ((b1.getX() > b2.getX()) ? b1.getX() : b2.getX()) + b2.getBrickSize();
     }
 
     void setNewPosition(int _x){
-        b1.setX(_x);
-        b2.setX(_x + b2.getBrickSize());
+        if(b1.getX() > b2.getX()) {
+            b2.setX(_x);
+            b1.setX(_x + b2.getBrickSize());
+        } else {
+            b1.setX(_x);
+            b2.setX(_x + b2.getBrickSize());
+        }
     }
 
     void swapBricks(){

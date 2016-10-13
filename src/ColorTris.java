@@ -51,6 +51,10 @@ public class ColorTris extends JFrame {
                     case KEY_UP:
                         allBricks.swapFalling();
                         break;
+                    case KEY_DOWN:
+                        while(!allBricks.fall(FIELD_HEIGHT)) {}
+                        allBricks.addNew();
+                        break;
                     default: break;
 
                 }
@@ -77,7 +81,7 @@ public class ColorTris extends JFrame {
         while (true) {
             delay.wait(FALL_SPEED);
 
-            //allBricks.fall(FIELD_HEIGHT);
+            allBricks.fall(FIELD_HEIGHT);
 
             mainField.repaint();
         }

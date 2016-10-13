@@ -33,14 +33,36 @@ class AllBricks {
         fallingBricks.swapBricks();
     }
 
-    void fall(int win_height){
+    boolean fall(int win_height) {
+        int count = 0;
         for (Brick brick : bList) {
-            if(brick.isHitFloor(win_height)) {
-                addNew();
+            if(isHitOther(win_height) || brick.isHitFloor(win_height)) {
+                count++;
+                brick.setMovable(false);
             } else {
-                brick.setY(brick.getY() + 1);
+                if(brick.getMovable())
+                    brick.setY(brick.getY() + 1);
             }
         }
+        return count > (bList.size() - 1);
+    }
+
+    boolean isHitOther(int win_height) {
+        int count = 0;
+        int onFloor = 1;
+        for (Brick brick1 : bList) {
+            for (Brick brick2 : bList) {
+                if ((brick1.getY() + brick1.getBrickSize() == brick2.getY()) && (brick1.getX() == brick2.getX())) {
+                    count++;
+                    brick1.setMovable(false);
+                }
+            }
+        }
+        for (Brick brick : bList) {
+            if (brick.isHitFloor(win_height)) onFloor++;
+        }
+        return count > (bList.size() - onFloor);
+
     }
 
     void drawSelf(Graphics g) {
