@@ -19,9 +19,25 @@ class AllBricks {
         bList.add(fallingBricks.getB2());
     }
 
+    void moveLeft(){
+        if(fallingBricks.getLeftBorder() > 0)
+            fallingBricks.setNewPosition(fallingBricks.getLeftBorder() - 20);
+    }
+
+    void moveRight(int FIELD_WIDTH) {
+        if(fallingBricks.getRightBorder() < FIELD_WIDTH - 1)
+            fallingBricks.setNewPosition(fallingBricks.getLeftBorder() + 20);
+    }
+
+    void swapFalling() {
+        fallingBricks.swapBricks();
+    }
+
     void fall(int win_height){
         for (Brick brick : bList) {
-            if(!brick.isHitFloor(win_height)){
+            if(brick.isHitFloor(win_height)) {
+                addNew();
+            } else {
                 brick.setY(brick.getY() + 1);
             }
         }

@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.*;
 
 public class ColorTris extends JFrame {
 
@@ -18,10 +17,10 @@ public class ColorTris extends JFrame {
     private final static String TITLE = "ColorTris";
     private final static Color BG_COLOR = Color.DARK_GRAY;
     private final static int WIN_LOC = 100;
-    private final static int WIN_WIDTH = 201;
+    private final static int WIN_WIDTH = 210;
     private final static int WIN_HEIGHT = 450;
     private final static int FIELD_WIDTH = 200;
-    private final static int FIELD_HEIGHT = 425;
+    private final static int FIELD_HEIGHT = 420;
     private final static int FALL_SPEED = 30;
     private final static int KEY_LEFT = 37;
     private final static int KEY_UP = 38;
@@ -44,20 +43,17 @@ public class ColorTris extends JFrame {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()){
                     case KEY_LEFT:
-                        if(allBricks.fallingBricks.getLeftBorder() > 0)
-                            allBricks.fallingBricks.setNewPosition(allBricks.fallingBricks.getLeftBorder() - 20);
+                        allBricks.moveLeft();
                         break;
                     case KEY_RIGHT:
-                        if(allBricks.fallingBricks.getRightBorder() < WIN_WIDTH - 1)
-                            allBricks.fallingBricks.setNewPosition(allBricks.fallingBricks.getLeftBorder() + 20);
+                        allBricks.moveRight(FIELD_WIDTH);
                         break;
                     case KEY_UP:
-                        allBricks.fallingBricks.swapBricks();
+                        allBricks.swapFalling();
                         break;
                     default: break;
 
                 }
-
             }
         });
 
@@ -81,7 +77,7 @@ public class ColorTris extends JFrame {
         while (true) {
             delay.wait(FALL_SPEED);
 
-            allBricks.fall(FIELD_HEIGHT);
+            //allBricks.fall(FIELD_HEIGHT);
 
             mainField.repaint();
         }
