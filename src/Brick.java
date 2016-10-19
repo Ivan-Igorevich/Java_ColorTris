@@ -8,6 +8,7 @@ class Brick {
     private final static int BRICK_SIZE = 20;
     private final static int BRICK_ARC_SIZE = 5;
     private boolean isMovable;
+    private int id;
     private int x;
     private int y;
     private Color color;
@@ -22,10 +23,12 @@ class Brick {
     int getBrickSize() { return BRICK_SIZE; }
     int getX(){ return x; }
     int getY(){ return y; }
+    int getID() { return id; }
     boolean isHitFloor(int win_height) { return y + BRICK_SIZE == win_height; }
-
-    Brick(){
+    boolean isHitOther(Brick falling, Brick fixed) { return falling.getY() + falling.getBrickSize() == fixed.getY(); }
+    Brick(int _id){
         isMovable = true;
+        id = _id;
         x = 0;
         y = 0;
         color = bColors.getRandom();
